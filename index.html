@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WRFV4.6.0 - Productos WRF</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,81 +44,117 @@
     .tab-label.active {
       background: #b3172d; /* Color al pasar o activo */
     }
-    /* Contenedor de los iframes */
-    #iframeContainer2 {
-      margin: 20px;
-      border: 1px solid #ccc;
-      min-height: 800px; /* Para pantallas grandes */
-    }
-    /* Los iframes se muestran al 100% del ancho y tienen una altura fija para pantallas grandes */
+    /* Contenedor de contenido de cada pestaña */
     .tab-content {
       display: none;
-      width: 100%;
-      height: 1000px;
-      border: 0;
+      padding: 20px;
+      border: 1px solid #ccc;
+      margin: 20px;
+      background: #fff;
     }
     .tab-content.active {
       display: block;
     }
-    /* Media query para dispositivos con ancho máximo de 768px (tablets y móviles) */
-    @media (max-width: 768px) {
-      #iframeContainer2 {
-        margin: 10px;
-        min-height: 400px; /* Se reduce la altura mínima */
-      }
-      .tab-content {
-        height: 400px; /* Altura reducida para evitar espacio en blanco */
-      }
+    /* Estilos para el slideshow en "Precipitación cada hora" */
+    #slideshow {
+      width: 90%;
+      max-width: 600px;
+      height: 60vh;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f2f2f2;
     }
-    /* Media query para dispositivos aún más pequeños (móviles muy pequeños) */
-    @media (max-width: 480px) {
-      #iframeContainer2 {
-        margin: 5px;
-        min-height: 300px;
-      }
-      .tab-content {
-        height: 300px;
-      }
+    #slideshow img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    #slideshow img.active {
+      opacity: 1;
+    }
+    /* Estilos para los botones del slideshow */
+    #buttonContainer {
+      text-align: center;
+      margin-top: 10px;
+    }
+    #buttonContainer button {
+      margin: 0 5px;
+      padding: 5px 10px;
+      border: none;
+      background: #cc1c3a;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #buttonContainer button:hover {
+      background: #b3172d;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Weather Research and Forecast</h1>
-    <p>
-      Consulta los productos del modelo WRF para los próximos 7 días en el estado de Nuevo León.
-    </p>
+    <p>Consulta los productos del modelo WRF para los próximos 7 días en el estado de Nuevo León.</p>
   </header>
-
+  
   <section>
     <h2 style="text-align: center;">WRFV4.6.0</h2>
     <div class="tabs">
-      <span class="tab-label" data-tab="precipitacion.html">Precipitación cada hora</span>
-      <span class="tab-label" data-tab="precipitacionacumulada.html">Precipitación Acumulada</span>
-      <span class="tab-label" data-tab="temperatura.html">Temperatura</span>
+      <span class="tab-label" data-tab="precipitacion">Precipitación cada hora</span>
+      <span class="tab-label" data-tab="precipitacionacumulada">Precipitación Acumulada</span>
+      <span class="tab-label" data-tab="temperatura">Temperatura</span>
     </div>
-    <div id="iframeContainer2">
-      <iframe src="precipitacion.html" class="tab-content" data-tab="precipitacion.html" allowfullscreen></iframe>
-      <iframe src="precipitacionacumulada.html" class="tab-content" data-tab="precipitacionacumulada.html" allowfullscreen></iframe>
-      <iframe src="temperatura.html" class="tab-content" data-tab="temperatura.html" allowfullscreen></iframe>
+    
+    <!-- Contenido para cada pestaña -->
+    <div id="precipitacion" class="tab-content">
+      <h3>Precipitación cada hora</h3>
+      <div id="slideshow">
+        <img src="prcp/1.jpg" alt="Imagen 1" class="active">
+        <img src="prcp/2.jpg" alt="Imagen 2">
+        <img src="prcp/3.jpg" alt="Imagen 3">
+        <img src="prcp/4.jpg" alt="Imagen 4">
+        <img src="prcp/5.jpg" alt="Imagen 5">
+        <!-- Agrega más imágenes según sea necesario -->
+      </div>
+      <div id="buttonContainer">
+        <button data-index="0">1</button>
+        <button data-index="1">2</button>
+        <button data-index="2">3</button>
+        <button data-index="3">4</button>
+        <button data-index="4">5</button>
+      </div>
+    </div>
+    
+    <div id="precipitacionacumulada" class="tab-content">
+      <h3>Precipitación Acumulada</h3>
+      <p>Aquí iría el contenido (por ejemplo, otro slideshow o gráficos) para la precipitación acumulada.</p>
+    </div>
+    
+    <div id="temperatura" class="tab-content">
+      <h3>Temperatura</h3>
+      <p>Aquí iría el contenido correspondiente a la temperatura.</p>
     </div>
   </section>
-
+  
   <script>
+    // Funcionalidad para cambiar entre pestañas
     const tabLabels = document.querySelectorAll('.tab-label');
     const tabContents = document.querySelectorAll('.tab-content');
 
-    function activateTab(tabSrc) {
-      // Desactivar todas las etiquetas y contenidos
+    function activateTab(tabId) {
+      // Ocultar todas las secciones y desactivar las pestañas
       tabLabels.forEach(label => label.classList.remove('active'));
       tabContents.forEach(content => content.classList.remove('active'));
-
-      // Activar la etiqueta e iframe correspondiente
-      const activeLabel = document.querySelector(`.tab-label[data-tab="${tabSrc}"]`);
-      const activeContent = document.querySelector(`.tab-content[data-tab="${tabSrc}"]`);
-
-      if (activeLabel) activeLabel.classList.add('active');
-      if (activeContent) activeContent.classList.add('active');
+      // Activar la pestaña y la sección correspondiente
+      document.querySelector(`.tab-label[data-tab="${tabId}"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
     }
 
     tabLabels.forEach(label => {
@@ -130,10 +166,26 @@
       });
     });
 
-    // Activa la primera pestaña al cargar la página
+    // Activar la primera pestaña por defecto
     if (tabLabels.length > 0) {
       activateTab(tabLabels[0].getAttribute('data-tab'));
     }
+
+    // Funcionalidad para el slideshow en la sección "Precipitación cada hora"
+    const images = document.querySelectorAll('#slideshow img');
+    const buttons = document.querySelectorAll('#buttonContainer button');
+    
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        const index = parseInt(button.getAttribute('data-index'));
+        // Ocultar todas las imágenes
+        images.forEach(img => img.classList.remove('active'));
+        // Mostrar la imagen correspondiente
+        if (images[index]) {
+          images[index].classList.add('active');
+        }
+      });
+    });
   </script>
 </body>
 </html>
