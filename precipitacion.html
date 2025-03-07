@@ -1,61 +1,90 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Slideshow Simple</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Slideshow con Botones</title>
   <style>
-    /* Contenedor responsivo para el slideshow */
-    #slideshow {
-      width: 90vw;         /* 90% del ancho de la ventana */
-      height: 60vh;        /* 60% de la altura de la ventana */
+    /* Contenedor de la imagen */
+    #imageContainer {
+      width: 90vw;
+      height: 60vh;
       margin: 0 auto;
       position: relative;
       overflow: hidden;
       border: 1px solid #ccc;
-      background-color: #f2f2f2;
+      background: #f2f2f2;
     }
-    /* Las imágenes se posicionan en el mismo lugar y se transicionan */
-    #slideshow img {
+    /* Todas las imágenes se posicionan en el mismo lugar */
+    #imageContainer img {
       position: absolute;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Ajusta la imagen sin deformarla */
+      object-fit: contain;
       opacity: 0;
-      transition: opacity 0.5s ease-in-out;
+      transition: opacity 0.5s ease;
     }
     /* La imagen activa es visible */
-    #slideshow img.active {
+    #imageContainer img.active {
       opacity: 1;
+    }
+    /* Contenedor de los botones */
+    #buttonContainer {
+      text-align: center;
+      margin: 20px;
+    }
+    /* Estilo de los botones */
+    #buttonContainer button {
+      margin: 0 5px;
+      padding: 10px 15px;
+      border: none;
+      background: #cc1c3a;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #buttonContainer button:hover {
+      background: #b3172d;
     }
   </style>
 </head>
 <body>
-  <div id="slideshow">
-    <img src="prcp/1.jpg" class="active" alt="Imagen 1">
+  <div id="imageContainer">
+    <img src="prcp/1.jpg" alt="Imagen 1" class="active">
     <img src="prcp/2.jpg" alt="Imagen 2">
     <img src="prcp/3.jpg" alt="Imagen 3">
     <img src="prcp/4.jpg" alt="Imagen 4">
-    <img src="prcp/5.jpg" alt="Imagen 5">
-    <!-- Puedes agregar más imágenes según sea necesario -->
+    <!-- Agrega más imágenes según sea necesario -->
+  </div>
+  
+  <div id="buttonContainer">
+    <button data-index="0">1</button>
+    <button data-index="1">2</button>
+    <button data-index="2">3</button>
+    <button data-index="3">4</button>
+    <!-- Agrega más botones si tienes más imágenes -->
   </div>
   
   <script>
-    // Selecciona todas las imágenes dentro del contenedor
-    const images = document.querySelectorAll('#slideshow img');
-    let currentIndex = 0;
-    const intervalTime = 2000; // Intervalo en milisegundos (2000 ms = 2 segundos)
+    // Selecciona todas las imágenes y botones
+    const images = document.querySelectorAll('#imageContainer img');
+    const buttons = document.querySelectorAll('#buttonContainer button');
     
-    setInterval(() => {
-      // Quita la clase 'active' de la imagen actual
-      images[currentIndex].classList.remove('active');
-      // Incrementa el índice de forma circular
-      currentIndex = (currentIndex + 1) % images.length;
-      // Agrega la clase 'active' a la siguiente imagen
-      images[currentIndex].classList.add('active');
-    }, intervalTime);
+    // Para cada botón, al pasar el mouse, muestra la imagen correspondiente
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        // Obtiene el índice de la imagen desde el atributo data-index
+        const index = parseInt(button.getAttribute('data-index'));
+        // Quita la clase 'active' a todas las imágenes
+        images.forEach(img => img.classList.remove('active'));
+        // Agrega la clase 'active' a la imagen correspondiente
+        if(images[index]) {
+          images[index].classList.add('active');
+        }
+      });
+    });
   </script>
 </body>
 </html>
