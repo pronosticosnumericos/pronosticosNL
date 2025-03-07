@@ -5,12 +5,21 @@
     <meta charset='utf-8' />
     <script src='imageplayer.js'></script>
     <style>
-      /* Establecer el tamaño del contenedor de imágenes */
+      /* Estilo base para el contenedor de la imagen */
       #ipDiv {
          width: 300px;
          height: 600px;
-         margin: 0 auto; /* Opcional: para centrar el contenedor */
-         border: 1px solid #ccc; /* Opcional: para visualizar el contenedor */
+         margin: 0 auto;
+         border: 1px solid #ccc;
+      }
+      
+      /* Ajustes para pantallas más pequeñas */
+      @media (max-width: 768px) {
+        #ipDiv {
+           width: 90%;      /* Ocupa el 90% del ancho disponible */
+           height: auto;    /* Permite que la altura se ajuste automáticamente */
+           max-height: 600px;  /* Puedes establecer un límite máximo si es necesario */
+        }
       }
     </style>
   </head>
@@ -47,8 +56,8 @@
         ],
         autoplay: 200,
         interval: 200,
-        width : "300px",  // Se ajusta el ancho
-        height : "600px", // Se ajusta el alto
+        width : "300px",  // Valor para pantallas grandes
+        height : "600px", // Valor para pantallas grandes
         icondir:  './'
       });
     </script>
