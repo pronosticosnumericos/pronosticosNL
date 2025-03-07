@@ -1,75 +1,89 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>WRFV4.6.0 - Productos WRF</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WRF Productos</title>
+  <!-- Puedes incluir fuentes externas si lo deseas -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <!-- Se incluye la fuente Noto Sans Buginese -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Buginese&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    /* Estilos básicos para imitar una estructura similar */
     body {
-      font-family: 'Noto Sans Buginese', sans-serif;
+      font-family: 'Open Sans', sans-serif;
       margin: 0;
-      padding: 0;
       background: #f2f2f2;
-      color: #000;
+      color: #333;
     }
     header {
-      background-color: #747474;
+      background: #747474;
       color: #fff;
-      text-align: center;
-      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
     }
-    header p {
-      margin-top: 0.5rem;
-      font-size: 1.1rem;
+    header img {
+      height: 50px;
     }
-    .tabs {
-      margin: 20px;
-      text-align: center;
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-right: 15px;
+      padding: 5px 10px;
+      border-radius: 4px;
     }
-    .tab-label {
-      display: inline-block;
-      padding: 10px 20px;
+    nav a:hover {
+      background: #b3172d;
+    }
+    #main {
+      padding: 20px;
+    }
+    /* Contenedor de pestañas */
+    .tab-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      margin: 0 5px;
+      padding: 10px 15px;
+      border: none;
       background: #cc1c3a;
       color: #fff;
-      margin-right: 10px;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
     }
-    .tab-label:hover,
-    .tab-label.active {
-      background: #b3172d; /* Color al pasar o activo */
+    .tab-btn.active {
+      background: #b3172d;
     }
-    /* Contenedor de contenido de cada pestaña */
+    /* Contenido de cada sección */
     .tab-content {
       display: none;
+      background: #fff;
       padding: 20px;
       border: 1px solid #ccc;
-      margin: 20px;
-      background: #fff;
     }
     .tab-content.active {
       display: block;
     }
-    /* Estilos para el slideshow en "Precipitación cada hora" */
+    /* Ejemplo de slideshow en la pestaña “Precipitación” */
     #slideshow {
-      width: 90%;
+      position: relative;
+      width: 100%;
       max-width: 600px;
       height: 60vh;
       margin: 0 auto;
-      position: relative;
       overflow: hidden;
       border: 1px solid #ccc;
-      background-color: #f2f2f2;
+      background: #f9f9f9;
     }
     #slideshow img {
       position: absolute;
-      left: 0;
       top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: contain;
@@ -79,7 +93,7 @@
     #slideshow img.active {
       opacity: 1;
     }
-    /* Estilos para los botones del slideshow */
+    /* Botones para cambiar imagen en el slideshow */
     #buttonContainer {
       text-align: center;
       margin-top: 10px;
@@ -90,38 +104,51 @@
       border: none;
       background: #cc1c3a;
       color: #fff;
+      border-radius: 4px;
       cursor: pointer;
       transition: background 0.3s;
     }
     #buttonContainer button:hover {
       background: #b3172d;
     }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 15px 0;
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body>
+  <!-- Header con logo y navegación -->
   <header>
-    <h1>Weather Research and Forecast</h1>
-    <p>Consulta los productos del modelo WRF para los próximos 7 días en el estado de Nuevo León.</p>
+    <img src="logo.svg" alt="Logo">
+    <nav>
+      <a href="#">Inicio</a>
+      <a href="#">Productos</a>
+      <a href="#">Contacto</a>
+    </nav>
   </header>
   
-  <section>
-    <h2 style="text-align: center;">WRFV4.6.0</h2>
-    <div class="tabs">
-      <span class="tab-label" data-tab="precipitacion">Precipitación cada hora</span>
-      <span class="tab-label" data-tab="precipitacionacumulada">Precipitación Acumulada</span>
-      <span class="tab-label" data-tab="temperatura">Temperatura</span>
+  <div id="main">
+    <!-- Contenedor de pestañas -->
+    <div class="tab-container">
+      <button class="tab-btn active" data-tab="precipitacion">Precipitación</button>
+      <button class="tab-btn" data-tab="acumulada">Acumulada</button>
+      <button class="tab-btn" data-tab="temperatura">Temperatura</button>
     </div>
     
-    <!-- Contenido para cada pestaña -->
-    <div id="precipitacion" class="tab-content">
-      <h3>Precipitación cada hora</h3>
+    <!-- Contenido de cada pestaña -->
+    <div id="precipitacion" class="tab-content active">
+      <h2>Precipitación cada hora</h2>
+      <!-- Ejemplo de slideshow -->
       <div id="slideshow">
         <img src="prcp/1.jpg" alt="Imagen 1" class="active">
         <img src="prcp/2.jpg" alt="Imagen 2">
         <img src="prcp/3.jpg" alt="Imagen 3">
         <img src="prcp/4.jpg" alt="Imagen 4">
         <img src="prcp/5.jpg" alt="Imagen 5">
-        <!-- Agrega más imágenes según sea necesario -->
       </div>
       <div id="buttonContainer">
         <button data-index="0">1</button>
@@ -132,57 +159,45 @@
       </div>
     </div>
     
-    <div id="precipitacionacumulada" class="tab-content">
-      <h3>Precipitación Acumulada</h3>
-      <p>Aquí iría el contenido (por ejemplo, otro slideshow o gráficos) para la precipitación acumulada.</p>
+    <div id="acumulada" class="tab-content">
+      <h2>Precipitación Acumulada</h2>
+      <p>Contenido para la precipitación acumulada.</p>
     </div>
     
     <div id="temperatura" class="tab-content">
-      <h3>Temperatura</h3>
-      <p>Aquí iría el contenido correspondiente a la temperatura.</p>
+      <h2>Temperatura</h2>
+      <p>Contenido para la temperatura.</p>
     </div>
-  </section>
+  </div>
+  
+  <footer>
+    <p>© 2025 Mi Sitio. Todos los derechos reservados.</p>
+  </footer>
   
   <script>
-    // Funcionalidad para cambiar entre pestañas
-    const tabLabels = document.querySelectorAll('.tab-label');
-    const tabContents = document.querySelectorAll('.tab-content');
+    // Cambio de pestañas
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
 
-    function activateTab(tabId) {
-      // Ocultar todas las secciones y desactivar las pestañas
-      tabLabels.forEach(label => label.classList.remove('active'));
-      tabContents.forEach(content => content.classList.remove('active'));
-      // Activar la pestaña y la sección correspondiente
-      document.querySelector(`.tab-label[data-tab="${tabId}"]`).classList.add('active');
-      document.getElementById(tabId).classList.add('active');
-    }
-
-    tabLabels.forEach(label => {
-      label.addEventListener('click', () => {
-        activateTab(label.getAttribute('data-tab'));
-      });
-      label.addEventListener('mouseenter', () => {
-        activateTab(label.getAttribute('data-tab'));
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
       });
     });
-
-    // Activar la primera pestaña por defecto
-    if (tabLabels.length > 0) {
-      activateTab(tabLabels[0].getAttribute('data-tab'));
-    }
-
-    // Funcionalidad para el slideshow en la sección "Precipitación cada hora"
-    const images = document.querySelectorAll('#slideshow img');
-    const buttons = document.querySelectorAll('#buttonContainer button');
     
-    buttons.forEach(button => {
+    // Slideshow: cambia la imagen al pasar el mouse sobre cada botón
+    const slideshowImages = document.querySelectorAll('#slideshow img');
+    const slideshowButtons = document.querySelectorAll('#buttonContainer button');
+    
+    slideshowButtons.forEach(button => {
       button.addEventListener('mouseenter', () => {
         const index = parseInt(button.getAttribute('data-index'));
-        // Ocultar todas las imágenes
-        images.forEach(img => img.classList.remove('active'));
-        // Mostrar la imagen correspondiente
-        if (images[index]) {
-          images[index].classList.add('active');
+        slideshowImages.forEach(img => img.classList.remove('active'));
+        if (slideshowImages[index]) {
+          slideshowImages[index].classList.add('active');
         }
       });
     });
