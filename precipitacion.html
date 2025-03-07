@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ImagePlayer</title>
-    <meta charset='utf-8' />
-    <script src='imageplayer.js'></script>
-    <style>
-      /* Opcional: puedes agregar estilos al contenedor para centrarlo o darle un borde */
-      #ipDiv {
-         margin: 0 auto;
-         border: 1px solid #ccc;
-         /* Se puede ajustar el tamaño mínimo o máximo si lo requieres */
-         max-width: 500px;
-         max-height: 600px;
-      }
-    </style>
-  </head>
-  <body style='background-color: #ffffff;'>
-    <div id='ipDiv'></div>
-    <script>
-      ip = new ImagePlayer({
-        element: 'ipDiv',
-        images: [  
-          'prcp/1.jpg',
-          'prcp/2.jpg',
-          'prcp/3.jpg',
-          'prcp/4.jpg',
-          'prcp/5.jpg',
-          'prcp/6.jpg',
-          'prcp/7.jpg',
-          'prcp/8.jpg',
-          'prcp/9.jpg',
-          'prcp/10.jpg',
-          'prcp/11.jpg',
-          'prcp/12.jpg',
-          'prcp/13.jpg',
-          'prcp/14.jpg',
-          'prcp/15.jpg',
-          'prcp/16.jpg',
-          'prcp/17.jpg',
-          'prcp/18.jpg',
-          'prcp/19.jpg',
-          'prcp/20.jpg',
-          'prcp/21.jpg',
-          'prcp/22.jpg',
-          'prcp/23.jpg',
-          'prcp/24.jpg'
-        ],
-        autoplay: 200,
-        interval: 200,
-        width : "90vw",  // Se adapta al 90% del ancho de la ventana
-        height : "60vh", // Se adapta al 60% de la altura de la ventana
-        icondir:  './'
-      });
-    </script>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Slideshow Simple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* Contenedor responsivo para el slideshow */
+    #slideshow {
+      width: 90vw;         /* 90% del ancho de la ventana */
+      height: 60vh;        /* 60% de la altura de la ventana */
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      background-color: #f2f2f2;
+    }
+    /* Las imágenes se posicionan en el mismo lugar y se transicionan */
+    #slideshow img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Ajusta la imagen sin deformarla */
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    /* La imagen activa es visible */
+    #slideshow img.active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div id="slideshow">
+    <img src="prcp/1.jpg" class="active" alt="Imagen 1">
+    <img src="prcp/2.jpg" alt="Imagen 2">
+    <img src="prcp/3.jpg" alt="Imagen 3">
+    <img src="prcp/4.jpg" alt="Imagen 4">
+    <img src="prcp/5.jpg" alt="Imagen 5">
+    <!-- Puedes agregar más imágenes según sea necesario -->
+  </div>
+  
+  <script>
+    // Selecciona todas las imágenes dentro del contenedor
+    const images = document.querySelectorAll('#slideshow img');
+    let currentIndex = 0;
+    const intervalTime = 2000; // Intervalo en milisegundos (2000 ms = 2 segundos)
+    
+    setInterval(() => {
+      // Quita la clase 'active' de la imagen actual
+      images[currentIndex].classList.remove('active');
+      // Incrementa el índice de forma circular
+      currentIndex = (currentIndex + 1) % images.length;
+      // Agrega la clase 'active' a la siguiente imagen
+      images[currentIndex].classList.add('active');
+    }, intervalTime);
+  </script>
+</body>
 </html>
 
